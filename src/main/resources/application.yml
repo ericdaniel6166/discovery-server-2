@@ -1,0 +1,35 @@
+app:
+  hostname: localhost
+  server-port: 8761
+  application-name: discovery-server
+
+spring:
+  application:
+    name: ${app.application-name}
+  profiles:
+    active:
+      - local
+
+server:
+  port: ${app.server-port}
+
+eureka:
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://${app.hostname}:${app.server-port}/eureka
+  instance:
+    hostname: ${app.hostname}}
+
+management:
+  health:
+    circuitbreakers:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
